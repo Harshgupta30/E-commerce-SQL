@@ -1,0 +1,123 @@
+body{
+    margin: 0;
+}
+button{
+    border: none;
+    margin: 5px;
+    /* padding-right: 10px; */
+    height: 40px;
+    /* width: 100px; */
+    background-color: rgb(54, 45, 158);
+    color: white;
+}
+
+a{
+    text-decoration: none;
+}
+h1{
+    margin: 0;
+    color: white;
+}
+.co{
+    height: 50%;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+}
+
+img:hover{
+    transition: 1s;
+    transform: scale(1.1);
+}
+.show {
+    /* display: block; */
+    visibility: visible;
+}
+
+.hidden{
+    /* display: none; */
+    visibility: hidden;
+}
+#popup{
+    width: 30vh;
+    background-color: #333;
+    border-radius: 6px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+}
+.card {
+    background: #fff;
+    box-shadow: 6px 6px 10px  rgba(0, 0, 0, .08), 6px 6px 10px  rgba(0, 0, 0, .08);
+    transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+    border: 0;
+    border-radius: 1rem
+}
+
+.card-img-top {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    padding: 30px
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06)
+}
+
+.btn-warning {
+    background: none #f7810a;
+    color: #ffffff;
+    fill: #ffffff;
+    border: none;
+    text-decoration: none;
+    outline: 0;
+    box-shadow: -1px 6px 19px rgba(247, 129, 10, 0.25);
+    border-radius: 100px
+}
+
+.btn-warning:hover {
+    background: none #ff962b;
+    color: #ffffff;
+    box-shadow: -1px 6px 13px rgba(255, 150, 43, 0.35)
+}
+
+.price-hp {
+    font-size: 1rem;
+    font-weight: 600;
+    color: darkgray
+}
+
+@media (max-width: 768px) {
+    .card-img-top {
+        max-height: 250px
+    }
+}
+
+@media (max-width: 1025px) {
+    .btn {
+        padding: 5px 40px 5px 40px
+    }
+}
+
+@media (max-width: 250px) {
+    .btn {
+        padding: 5px 30px 5px 30px
+    }
+}
+
+@media (max-width: 370px) {
+    .btn {
+        padding: 5px 40px 5px 40px;
+        font-size: 1rem
+    }
+}

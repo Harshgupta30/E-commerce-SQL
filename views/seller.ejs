@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/seller.css">
+</head>
+<body style="background-image: url(/bgimg.webp) ;background-size: cover;">
+    <div class="container-fluid co">
+        <h1>welcome <%= name %></h1>
+        <div class="d-flex justify-content-between">
+            <a href="/snew"><button class="btn btn-warning pop">AddProduct</button></a>&nbsp
+            <a href="/sellerorder"><button class="btn btn-warning pop">Orders to deliver</button></a>&nbsp
+            <a href="/changepassword"><button class="btn btn-warning pop">ChangePassword</button></a>&nbsp
+            <a href="/logout"><button class="btn btn-warning pop">Logout</button></a>
+        </div>
+    </div>
+    <div class="container">
+        <div id="popup">
+        </div>
+    </div>
+    <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-5" id="main">
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="text-center my-4"> <a href="#" id="prev" class="btn btn-warning">Prev</a>&nbsp<a href="#" id="next" class="btn btn-warning">Next</a> </div>
+            </div>
+        </div>
+    </div>
+    <script src="/script/seller.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+</html>

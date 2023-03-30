@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/new.css">
+</head>
+<body style="background-image: url(/bgimg.webp) ;background-size: cover;">
+    <div class="container-fluid co">
+        <h1>welcome <%= name %></h1>
+        <div class="d-flex justify-content-between">
+            <a href="/adminpage"><button class="btn btn-warning pop">Home Page</button></a>&nbsp
+            <a href="/changepassword"><button class="btn btn-warning pop">ChangePassword</button></a>&nbsp
+            <a href="/logout"><button class="btn btn-warning pop">Logout</button></a>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center align-items-center" style="height: 70vh;">
+            <div class="sing">
+                <form method="post" action="/addproduct" enctype="multipart/form-data">
+                    <label for="pn">Product Name</label><br>
+                    <input type="text" id="pn" name="pname" placeholder="Product name"><br>
+                    <label for="pp">Product Price</label><br>
+                    <input type="number" id="pp" name="pprice" placeholder="Product price"><br>
+                    <label for="pd">Product Details</label><br>
+                    <input type="text" id="pd" name="pd" placeholder="Product details"><br>
+                    <label for="seller">Seller</label><br>
+                    <input type="text" id="seller" name="sell" placeholder="seller details"><br>
+                    <label for="qn">Quantity</label><br>
+                    <input type="number" id="qn" name="quant" placeholder="quantity"><br><br>
+                    <input type="file" id="pf"name="pf" ><br><br>
+                    <input type="submit" name="submit" class="btn btn-warning pop"><br><br>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+</html>
