@@ -36,7 +36,11 @@
                     <input type="file" id="pf"name="pf" ><br><br>
                     <input type="submit" name="submit" class="btn btn-warning pop"><br><br>
                 </form>
-
+                <p>Upload File from csv</p>
+                <form method="post" action="/csvproductupload" enctype="multipart/form-data">
+                    <input type="file" name="csv" accept=".csv" value="csv"><br><br>
+                    <input type="submit" value="Upload" class="btn btn-warning pop"><br><br>
+                </form>
             </div>
 
         </div>

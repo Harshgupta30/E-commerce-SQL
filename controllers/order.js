@@ -2,8 +2,8 @@ const addorder = require("../service/addorder");
 const getdata = require("../service/getProduct");
 
 const postorder = (req,res,)=>{
-    // console.log(req.body);
-    addorder(req.body.id,req.body.quant,req.session.username,(err,s)=>{
+    // console.log("server",req.body);
+    addorder(req.body.id,req.body.quant,req.body.payment_id,req.session.username,(err,s)=>{
         if(err){
             console.log(err);
         }

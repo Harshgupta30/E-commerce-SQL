@@ -88,15 +88,31 @@ function create(el) {
     a.setAttribute("class", "btn btn-warning pop");
     a.setAttribute("id", el.id);
 
-    let b = document.createElement("form");
+    // let b = document.createElement("form");
+    // b.setAttribute("id", el.id);
+    // b.setAttribute("action", `/addtocart?id=${el.id}`);
+    // b.setAttribute("method", "POST");
+    // let c = document.createElement("input");
+    // c.setAttribute("type", "submit");
+    // c.setAttribute("class", "btn btn-warning pop");
+    // c.setAttribute("value", "Add to Cart");
+    // b.appendChild(c);
+    
+    let b = document.createElement("a");
+    b.setAttribute("herf", "#");
+    b.setAttribute("class", "btn btn-warning pop");
     b.setAttribute("id", el.id);
-    b.setAttribute("action", `/addtocart?id=${el.id}`);
-    b.setAttribute("method", "POST");
-    let c = document.createElement("input");
-    c.setAttribute("type", "submit");
-    c.setAttribute("class", "btn btn-warning pop");
-    c.setAttribute("value", "Add to Cart");
-    b.appendChild(c);
+    b.innerText = "Add to Cart";
+    b.addEventListener("click",()=>{
+        let add = new XMLHttpRequest();
+        add.open("post",`/addtocart?id=${el.id}`);
+        add.addEventListener("load",(response)=>{
+            let temp = document.createElement("span");
+            temp.innerText="product added sucessfull";
+            document.getElementById(el.id).appendChild(temp);
+        })
+        add.send();
+    })
     a.addEventListener("click", () => {
         removeallchild(popup);
         let temp;

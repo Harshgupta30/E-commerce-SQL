@@ -16,11 +16,13 @@ const {mycart,getcart,savedata,del} = require("../controllers/cart");
 const {sellerpage,sdelpro,supdate,supdateproduct,snewpro,supload} = require("../controllers/seller");
 const {getorder,postorder,getorderdetails} = require("../controllers/order");
 const {sellorder,sellerord,sellerrevord} = require("../controllers/sellerorder");
+const csvupload = require("../controllers/csvupload");
 
 const {gethome,revhome} = require("../controllers/display");
 const {sellerpro,sellerrev} = require("../controllers/sellerdisplay");
 
 const {getquantity} = require("../controllers/getquantity");
+const {payment} = require("../controllers/payment");
 
 //middleware
 const checkAuth = require("../middleware/checkAuth");
@@ -32,7 +34,8 @@ const checkSeller = require("../middleware/checkSeller");
 
 //product img
 const multer = require('multer');
-const uploade = multer({ dest: 'uploads' })
+const uploade = multer({ dest: 'uploads' });
+const csvuploade = multer({dest: 'uploads_csv'});
 
 //routes
 router.get("/",root);
@@ -96,7 +99,11 @@ router.post("/sellerorder",sellerord);
 router.post("/sellerrevord",sellerrevord);
 
 
+router.post("/csvproductupload",csvuploade.single('csv'),csvupload);
 
 router.post("/getquantity",getquantity);
+
+router.post("/payment",payment);
+
 
 module.exports = router;

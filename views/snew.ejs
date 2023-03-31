@@ -20,7 +20,7 @@
         
     </div>
     <div class="row">
-        <div class="col d-flex justify-content-center align-items-center" style="height: 70vh;">
+        <div class="col d-flex justify-content-center align-items-center" style="height: 80vh;">
             <div class="sing">
                 <form method="post" action="/saddproduct" enctype="multipart/form-data">
                     <label for="pn">Product Name</label><br>
@@ -35,7 +35,11 @@
                     <input type="file" id="pf"name="pf" ><br><br>
                     <input type="submit" name="submit" class="btn btn-warning pop"><br><br>
                 </form>
-
+                <p>Upload File from csv</p>
+                <form method="post" action="/csvproductupload" enctype="multipart/form-data">
+                    <input type="file" name="csv" accept=".csv" value="csv"><br><br>
+                    <input type="submit" value="Upload" class="btn btn-warning pop"><br><br>
+                </form>
             </div>
 
         </div>

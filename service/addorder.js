@@ -3,7 +3,7 @@ const { connection, getclient } = require("./connection");
 // connection();
 const client = getclient();
 
-const addorder = async (arr, quant, user, callback) => {
+const addorder = async (arr, quant,payment_id, user, callback) => {
 
     let id = parseInt(arr);
     // const resp = {
@@ -46,7 +46,7 @@ const addorder = async (arr, quant, user, callback) => {
         where cart.id ='${id}' and cart.username='${user}' and products.id='${id}'`);
         // temp=temp.rows[0];
         // console.log(temp.rows[0]);
-        await client.query(`insert into orders (pid,seller,username,quantity) values (${temp.rows[0].id},'${temp.rows[0].seller}','${temp.rows[0].username}',${temp.rows[0].quantity})`);
+        await client.query(`insert into orders (pid,seller,username,quantity,payment_id) values (${temp.rows[0].id},'${temp.rows[0].seller}','${temp.rows[0].username}',${temp.rows[0].quantity},'${payment_id}')`);
         await client.query(`delete from cart where id=${temp.rows[0].id} and username='${temp.rows[0].username}'`);
         await client.query('COMMIT');
         callback(null,"sucess");

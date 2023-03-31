@@ -6,7 +6,7 @@ const popup = document.getElementById("popup");
 const checkout = document.getElementById("checkout");
 const check = document.getElementsByClassName("check");
 
-function savedata(id, quant,callback) {
+function savedata(id, quant, callback) {
     Object.keys(cart).forEach(element => {
         if (element == id) {
             cart[element].quantity = quant;
@@ -21,7 +21,7 @@ function savedata(id, quant,callback) {
     //     }
     // }
     // console.log("heloo");
-    request.addEventListener("load",function (response){
+    request.addEventListener("load", function (response) {
         // console.log("sucess");
         callback();
     })
@@ -109,7 +109,7 @@ function create(el, quant) {
     b1.addEventListener("click", function () {
         quant++;
         // h6.innerText = `Quantity:${quant}`;
-        savedata(el.id, quant,()=>{
+        savedata(el.id, quant, () => {
             h6.innerText = `Quantity:${quant}`;
         });
     })
@@ -118,7 +118,7 @@ function create(el, quant) {
         if (quant > 1) {
             quant--;
             // h6.innerText = `Quantity:${quant}`;
-            savedata(el.id, quant,()=>{
+            savedata(el.id, quant, () => {
                 h6.innerText = `Quantity:${quant}`;
             });
         }
@@ -142,7 +142,7 @@ function create(el, quant) {
     let c1 = document.createElement("input");
     c1.setAttribute("type", "checkbox");
     c1.setAttribute("class", "check");
-    c1.setAttribute("id",el.id);
+    c1.setAttribute("id", el.id);
     b.setAttribute("herf", "#");
     b.setAttribute("class", "btn btn-warning pop");
     b.setAttribute("id", el.id);
@@ -239,60 +239,173 @@ function display(arr) {
     })
 
 }
-checkout.addEventListener("click",()=>{
+checkout.addEventListener("click", () => {
     // console.log(check.length);
     // check.forEach((element)=>console.log(element));
-
-    let order;
-    for(let i=0;i<check.length;i++){
+    let order, amt = 0;
+    for (let i = 0; i < check.length; i++) {
         // console.log(check[i].checked);
-        if(check[i].checked==true){
-            let temp=check[i].parentNode.parentNode.parentNode;
+        if (check[i].checked == true) {
+            let temp = check[i].parentNode.parentNode.parentNode;
             let getquant = new XMLHttpRequest();
-            getquant.open("post","/getquantity");
+            getquant.open("post", "/getquantity");
             getquant.setRequestHeader("Content-type", "application/json");
-            let pid = {id:check[i].id};
+            let pid = { id: check[i].id };
             getquant.send(JSON.stringify(pid));
-            getquant.addEventListener("load",(response)=>{
+            getquant.addEventListener("load", (response) => {
                 // console.log(typeof(getquant.responseText));
                 let obj = JSON.parse(getquant.responseText);
-                if(obj.pq>=obj.cq){
-                    // console.log("ok")
-                    order={"id":check[i].id,"quant":obj.cq};
-                    let reqorder = new XMLHttpRequest();
-                    // console.log(order);
-                    reqorder.open("post","/order");
-                    reqorder.setRequestHeader("Content-type", "application/json");
-                    reqorder.send(JSON.stringify(order));
-                    reqorder.addEventListener("load",()=>{
+                if (obj.pq >= obj.cq) {
+                    amt = amt + (obj.price * obj.cq);
+                    // console.log("ok", amt)
 
-                        temp.remove();
-                    });
+                    // let reqorder = new XMLHttpRequest();
+                    // // console.log(order);
+                    // reqorder.open("post","/order");
+                    // reqorder.setRequestHeader("Content-type", "application/json");
+                    // reqorder.send(JSON.stringify(order));
+                    // reqorder.addEventListener("load",()=>{
+
+                    //     temp.remove();
+                    // });
                 }
-                else{
+                else {
                     // console.log("out of stock");
                     let s = document.createElement("span");
                     s.innerText = `stock size:${obj.pq}`;
-                    s.setAttribute("style","color:red;")
+                    s.setAttribute("style", "color:red;")
                     document.getElementById(check[i].id).appendChild(s);
                 }
-                // order.push(check[i].id);
             })
         }
     }
-    // let reqorder = new XMLHttpRequest();
-    // reqorder.open("post","/order");
-    // reqorder.setRequestHeader("Content-type", "application/json");
-    // reqorder.send(JSON.stringify(order));
-    // reqorder.addEventListener("load",()=>{
-    //     for(let i=0;i<check.length;i++){
-    //         if(check[i].checked==true){
-    //             let temp = parseInt(check[i].id);
-    //             // console.log(document.getElementById(temp));
-    //             document.getElementById(temp).remove();
-    //         }
-    //     }
-    // })
+    setTimeout(() => {
+        // console.log(amt);
+        if (amt > 0) {
+            order = { "amount": amt };
+            // console.log(order);
+            let Amount = document.createElement("span");
+            Amount.innerText = amt;
+            Amount.setAttribute("style", "position: absolute;bottom: 100px;right: 10px;background-color:white");
+            let pay = document.createElement("button");
+            pay.setAttribute("class", "btn btn-warning");
+            pay.setAttribute("id", "rzp-button1");
+            pay.innerText = "PAY";
+            pay.setAttribute("style", "position: absolute;bottom: 10px;right: 10px;")
+            let body = document.getElementsByTagName("body");
+            body[0].appendChild(Amount);
+            body[0].appendChild(pay);
+
+            document.getElementById('rzp-button1').onclick = async function (e) {
+                e.preventDefault();
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "/payment", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                xhr.onreadystatechange = function () {
+                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                        var orderData = JSON.parse(this.responseText);
+                        var options = {
+                            "key": "rzp_test_s5jNBoL3doMVgH",
+                            "amount": `${amt}`,
+                            "currency": "INR",
+                            "order_id": orderData.id,
+                            "handler": function (res) {
+                                for (let i = 0; i < check.length; i++) {
+                                    if (check[i].checked == true) {
+                                        let temp = check[i].parentNode.parentNode.parentNode;
+                                        let getquant = new XMLHttpRequest();
+                                        getquant.open("post", "/getquantity");
+                                        getquant.setRequestHeader("Content-type", "application/json");
+                                        let pid = { id: check[i].id };
+                                        getquant.send(JSON.stringify(pid));
+                                        getquant.addEventListener("load",(response)=>{
+                                            let obj = JSON.parse(getquant.responseText);
+                                            if(obj.pq >= obj.cq){
+                                                // console.log(res.razorpay_payment_id);
+                                                data = {id:check[i].id,quant:obj.cq,payment_id:res.razorpay_payment_id};
+                                                // console.log("client",data);
+                                                let reqorder = new XMLHttpRequest();
+                                                reqorder.open("post","/order");
+                                                reqorder.setRequestHeader("Content-type", "application/json");
+                                                reqorder.send(JSON.stringify(data));
+                                                reqorder.addEventListener("load",()=>{
+                                                    temp.remove();
+                                                })
+                                            }
+                                        })
+                                    }
+                                }
+
+                                // alert(response.razorpay_payment_id);
+                                // alert(response.razorpay_order_id);
+                                // alert(response.razorpay_signature);
+                            }
+                        };
+                        var rzp1 = new Razorpay(options);
+                        rzp1.open();
+                    }
+                };
+
+                xhr.send(JSON.stringify({
+                    amount: amt,
+                    currency: "INR"
+                }));
+
+
+                // let response = await fetch("/payment", {
+                //     method: "POST",
+                //     headers: {
+                //         "Content-Type": "application/json"
+                //     },
+                //     body: JSON.stringify({
+                //         amount: amt,
+                //         currency: "INR"
+                //     })
+                // });
+                // let orderData = await response.json();
+
+
+                // var options = {
+                //     "key": 'rzp_test_s5jNBoL3doMVgH', // Enter the Key ID generated from the Dashboard
+                //     "amount": `${amt}`, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                //     "currency": "INR",
+                //     "order_id": orderData.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                //     "handler": function (response) {
+                //         alert(response.razorpay_payment_id);
+                //         alert(response.razorpay_order_id);
+                //         alert(response.razorpay_signature)
+                //     },
+                // };
+
+                // var rzp1 = new Razorpay(options);
+                // rzp1.open();
+            }
+
+            //not needed
+
+            // rzp1.on('payment.failed', function (response){
+            //         alert(response.error.code);
+            //         alert(response.error.description);
+            //         alert(response.error.source);
+            //         alert(response.error.step);
+            //         alert(response.error.reason);
+            //         alert(response.error.metadata.order_id);
+            //         alert(response.error.metadata.payment_id);
+            // });
+            // let orderpayment = new XMLHttpRequest();
+            // orderpayment.open("post", "/payment");
+            // orderpayment.setRequestHeader("Content-type", "application/json");
+            // orderpayment.send(JSON.stringify(order));
+            // orderpayment.addEventListener("load", () => {
+
+            // })
+        }
+
+    }, 1000)
+
 })
 
 

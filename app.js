@@ -4,8 +4,8 @@ const session = require('express-session')
 const port = 3000;
 var count = 0;
 app.set("view engine", "ejs");
+const cors = require("cors");
 // const { MongoClient } = require('mongodb');
-
 
 // // Connection URL
 // const url = 'mongodb://0.0.0.0:27017';
@@ -23,11 +23,12 @@ connection();
 
 const router = require("./routes/router");
 
-
+app.use(cors());
 
 
 app.use(express.static('public'));
 app.use(express.static('uploads'));
+app.use(express.static('uploads_csv'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const { name } = require("ejs");
