@@ -24,6 +24,8 @@ const {sellerpro,sellerrev} = require("../controllers/sellerdisplay");
 const {getquantity} = require("../controllers/getquantity");
 const {payment} = require("../controllers/payment");
 
+const about = require("../controllers/aboutus");
+
 //middleware
 const checkAuth = require("../middleware/checkAuth");
 const checkVerfication = require("../middleware/checkVerfication");
@@ -105,5 +107,7 @@ router.post("/getquantity",getquantity);
 
 router.post("/payment",payment);
 
+
+router.get("/aboutus",about);
 
 module.exports = router;

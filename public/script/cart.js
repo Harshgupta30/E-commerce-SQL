@@ -286,12 +286,12 @@ checkout.addEventListener("click", () => {
             // console.log(order);
             let Amount = document.createElement("span");
             Amount.innerText = amt;
-            Amount.setAttribute("style", "position: absolute;bottom: 100px;right: 10px;background-color:white");
+            Amount.setAttribute("style", "position: absolute;bottom: 150px;right: 10px;background-color:white");
             let pay = document.createElement("button");
             pay.setAttribute("class", "btn btn-warning");
             pay.setAttribute("id", "rzp-button1");
             pay.innerText = "PAY";
-            pay.setAttribute("style", "position: absolute;bottom: 10px;right: 10px;")
+            pay.setAttribute("style", "position: absolute;bottom: 100px;right: 10px;")
             let body = document.getElementsByTagName("body");
             body[0].appendChild(Amount);
             body[0].appendChild(pay);

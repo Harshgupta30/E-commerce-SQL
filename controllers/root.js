@@ -1,10 +1,21 @@
 const root = (req,res)=>{
     if (req.session.logged_in) {
-        res.redirect("/home");
+        if(req.session.userType=="seller"){
+            res.redirect("/sellerpage");
+            return;
+        }
+        else if(req.session.userType=="admin"){
+            res.redirect("/adminpage");
+        }
+        else{
+            res.redirect("/home");
+            return;
+        }
+    }
+    else{
+        res.render("root");
         return;
     }
     
-    res.render("root");
-    return;
 };
 module.exports = root;

@@ -10,11 +10,11 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
-<body style="background-image: url(/bgimg.webp) ;background-size: cover;margin: 0;">
-    <div class="container">
+<body style="background-image: url(/bgimg1.jpg) ;background-size: cover;margin: 0;">
+    <div class="container d-flex justify-content-center">
         <div class="row"
-            style=" display: flex;height: 90vh; width: 100vw;justify-content: center;align-items: center;">
-            <div class="col" style="height: 40vh;width: 50vw; background-color: grey;">
+            style=" display: flex;height: 90vh; width: 60vw;justify-content: center;align-items: center;">
+            <div class="col bg-dark text-light">
                 <h4>The passwor must contains</h4>
                 <ul>
                     <li>minimum 8 character</li>
@@ -24,7 +24,7 @@
                 </ul>
                 <form action="/confirm" method="post" style="text-align: center;">
                     <input type="text" name="username" placeholder="username"><br><br>
-                    <input type="submit" value="submit" class="btn btn-warning pop">
+                    <input type="submit" value="submit" class="btn btn-warning pop" style="float: right;margin-right: 10px;margin-bottom: 10px;">
                 </form>
                 <div style="color: red;"><%= error %></div>
             </div>
